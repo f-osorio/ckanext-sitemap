@@ -9,6 +9,8 @@ Creates an XML sitemap for CKAN. The sitemap only includes datasets, no resource
 
 Only tested with CKAN 2.9.2 and Python3.
 
+- flask_caching
+
 ## Installation
 
 To install ckanext-sitemap:
