@@ -112,19 +112,25 @@ class TestSiteMap:
         assert(tree.getroot()[0][1].text == pkgdate)
 
 
-    @pytest.fixture(autouse=True)
     @pytest.mark.usefixtures("with_plugins")
     def test_zcache(self, app):
-        cont1 = self.cont
-        cont2 = self.cont
+        url = url_for('sitemap.view')
+        cont1 = app.get(url)
+        cont2 = app.get(url)
+        print('------------------------')
+        print(cont1.body)
+        print('------------------------')
+        print(cont2.body)
         assert(cont1.body == cont2.body)
 
         dataset = helpers.call_action(
             "package_patch", id="annakarenina", name="fookarenina"
         )
-        url = url_for('sitemap.view')
-        cont2 = app.get(url)
+        response = app.get(url)
+        response_headers = dict(response.headers)
+        print('------------------------')
+        print(response.body)
 
-        assert(cont1.body == cont2.body)
+        assert(cont1.body == response.body)
 
 
