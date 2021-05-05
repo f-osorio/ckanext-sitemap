@@ -122,9 +122,9 @@ class TestSiteMap:
         dataset = helpers.call_action(
             "package_patch", id="annakarenina", name="fookarenina"
         )
+        assert('fookarenina' in dataset['name'])
         response = app.get(url)
         response_headers = dict(response.headers)
-
         assert(cont1.body == response.body)
 
 
