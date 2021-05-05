@@ -21,10 +21,8 @@ class SitemapPlugin(plugins.SingletonPlugin):
 
         https://docs.ckan.org/en/2.9/extensions/plugin-interfaces.html#ckan.plugins.interfaces.IMiddleware.make_middleware
         """
-        try:
-            self.cache = Cache(config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_URL': c.get('ckan.redis_url')})
-        except Exception:
-            self.cache = Cache(config={'CACHE_TYPE': 'SimpleCache'})
+
+        self.cache = Cache(config={'CACHE_TYPE': 'RedisCache', 'CACHE_REDIS_URL': c.get('ckan.redis.url')})
         self.cache.init_app(app)
         cached_view = self.cache.cached(timeout=3600*24)(views.view)
         bp = Blueprint(u'sitemap', self.__module__)
